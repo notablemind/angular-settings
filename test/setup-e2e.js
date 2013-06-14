@@ -21,13 +21,13 @@ sets.add({
       name: 'Name',
       type: 'text',
       value: 'George',
-      description: 'What is your name?'
+      description: 'Your Name'
     },
     {
       name: 'Male',
       type: 'bool',
       value: true,
-      description: 'Are you male?'
+      description: 'Masculinity'
     }
   ]
 });
