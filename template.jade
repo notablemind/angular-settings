@@ -1,7 +1,16 @@
 .settings-manager
   .page(data-ng-repeat='page in pages')
     .title {{page.title}}
-    .setting-form(data-ng-repeat='setting in page.settings', ng-class='setting.name')
-      form(name='setting-form')
-        .setting(data-setting='setting')
+    table
+      thead
+        th Setting
+        th Value
+        th Description
+      tbody
+        tr.setting-form(data-ng-repeat='setting in page.settings', ng-class='setting.name')
+          td {{setting.name}}
+          td
+            form(name='setting-form')
+              div(data-setting='setting', class='setting setting-{{setting.type}}')
+          td {{setting.description}}
   

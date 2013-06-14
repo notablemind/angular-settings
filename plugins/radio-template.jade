@@ -1,4 +1,3 @@
-div(ng-repeat='value in setting.options')
+label(ng-repeat='value in setting.options')
   input(ng-model='setting.value', class='val-{{value}}', type='radio', value='{{value}}', name='setting')
-  | {{ value }}
-p {{setting.description}}
+  span.label {{ value }}

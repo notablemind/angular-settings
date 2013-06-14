@@ -6,6 +6,10 @@ var angular = require('angularjs')
 var testmod = angular.module('test', ['settings']);
 
 function Tester($scope) {
+  $scope.settings = settings.getSettings('thetests');
+  $scope.pretty = function () {
+    return JSON.stringify($scope.settings.json(), undefined, 2);
+  };
 };
 
 angularSettings.config('tester', {
@@ -14,7 +18,7 @@ angularSettings.config('tester', {
 
 var sets = settings.getSettings('thetests');
 sets.add({
-  name: 'PageOne',
+  name: 'myne',
   type: 'bool',
   settings: [
     {

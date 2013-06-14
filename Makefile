@@ -45,6 +45,9 @@ endif
 test: build
 	@${open} test/index.html
 
+example: build
+	@${open} test/example.html
+
 testci: buildci
 	@testem ci -f test/testem.json -l PhantomJS
 
