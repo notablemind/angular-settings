@@ -23,6 +23,13 @@ var mod = angular.module('settings', [])
           console.error('Settings manager invalid initialization; must pass in a valid name to watch');
           return;
         }
+        // TODO: figure out how I want to make this configurable. probably a
+        // global localization solution
+        scope.t = {
+          'Setting': 'Setting',
+          'Value': 'Value',
+          'Description': 'Description'
+        };
         /*
         scope.$parent.$watch(name, function(value) {
           scope.settings = value;

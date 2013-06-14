@@ -7,6 +7,21 @@
 
     $ component install notablemind/angular-settings
 
+## Todo
+
+### Figure out localization
+
+I want to do it ... but I'm not yet sure of the method.
+
+### Make a bootstrap theme
+
+Maybe use angular-ui? Honestly, I'm a little wary of depending on large
+projects like that, though. This should be small and modular.
+
+### Figure out the plugin situation better
+
+Currently logic + presentation are together.
+
 ## API
 
 ### .factory(settingsmanager)
