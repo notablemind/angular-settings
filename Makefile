@@ -1,8 +1,11 @@
 
 plugin_tpl := $(patsubst %.jade,%.js,$(wildcard plugins/*.jade))
 
-build: components index.js settings.styl template.js plugin-tpl
-	@component build --dev
+build: components node_modules index.js angular-settings.styl template.js plugin-tpl
+	@component build --dev --use component-stylus
+
+node_modules:
+	@npm install
 
 template.js: template.html
 	@component convert $<
