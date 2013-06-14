@@ -8,5 +8,4 @@ before_script:
   - component build --dev
   - npm install -g testem
   - npm install -g jade
-  - npm install -g stylus
 script: make testci
