@@ -7,5 +7,4 @@ before_script:
   - component install --dev
   - component build --dev
   - npm install -g testem
-  - npm install -g jade
 script: make testci
