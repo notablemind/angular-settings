@@ -6,6 +6,7 @@
   "keywords": [],
   "dependencies": {
     "notablemind/settings": "*",
+    "notablemind/loco": "*",
     "jabapyth/angularjs": "*"
   },
   "development": {

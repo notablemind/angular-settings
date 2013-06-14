@@ -1,6 +1,7 @@
 
 var angular = require('angularjs') 
   , settings = require('settings')
+  , loco = require('loco')('angularSettings')
   , template = require('./template');
 
 var _registry = {};
@@ -10,6 +11,12 @@ var register = function (type, obj) {
   }
   _registry[type] = obj;
 };
+
+loco.addDefault({
+  'Setting': 'Setting',
+  'Value': 'Value',
+  'Description': 'Description'
+});
 
 var mod = angular.module('settings', [])
 
@@ -25,11 +32,7 @@ var mod = angular.module('settings', [])
         }
         // TODO: figure out how I want to make this configurable. probably a
         // global localization solution
-        scope.t = {
-          'Setting': 'Setting',
-          'Value': 'Value',
-          'Description': 'Description'
-        };
+        scope.t = loco.get;
         /*
         scope.$parent.$watch(name, function(value) {
           scope.settings = value;

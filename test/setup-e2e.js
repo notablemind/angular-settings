@@ -1,7 +1,14 @@
 
 var angular = require('angularjs')
   , settings = require('settings')
+  , loco = require('loco')
   , angularSettings = require('angular-settings');
+
+loco.add('en', {
+  angularSettings: {
+    Value: 'Mancakes'
+  }
+});
 
 var testmod = angular.module('test', ['settings']);
 

@@ -3,9 +3,9 @@
     .title {{page.title}}
     table
       thead
-        th {{t.Setting}}
-        th {{t.Value}}
-        th {{t.Description}}
+        th {{t('Setting')}}
+        th {{t('Value')}}
+        th {{t('Description')}}
       tbody
         tr.setting-form(data-ng-repeat='setting in page.settings', ng-class='setting.name')
           td {{setting.name}}
