@@ -2,9 +2,16 @@
 var template = require('./bool-template')
 
 module.exports = {
-  clean: function (value) {
-    if (value === 'true') return true;
-    if (value === 'false') return false;
+  /*
+  validator: function (scope, ctrl) {
+    return function (value) {
+      if (value === 'true') return true;
+      if (value === 'false') return false;
+    };
   },
+  formatter: function (value) {
+    return value + '';
+  },
+  */
   template: template
 };

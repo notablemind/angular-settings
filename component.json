@@ -4,13 +4,25 @@
   "description": "Settings Manager angular component",
   "version": "0.0.1",
   "keywords": [],
-  "dependencies": {},
-  "development": {},
+  "dependencies": {
+    "notablemind/settings": "*",
+    "jabapyth/angularjs": "*"
+  },
+  "development": {
+    "visionmedia/mocha": "1.9.0",
+    "chaijs/chai": "*"
+  },
   "license": "MIT",
   "main": "index.js",
   "scripts": [
     "index.js",
-    "template.js"
+    "template.js",
+    "plugins/bool.js",
+    "plugins/bool-template.js",
+    "plugins/text.js",
+    "plugins/text-template.js",
+    "plugins/radio.js",
+    "plugins/radio-template.js"
   ],
   "styles": [
     "angular-settings.styl"

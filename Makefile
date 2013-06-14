@@ -27,4 +27,22 @@ components: component.json
 clean:
 	rm -fr build components template.js
 
-.PHONY: clean
+testem: build
+	@testem -f test/testem.json -l Chrome
+
+# open browser correctly in mac or linux
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+		open := google-chrome
+endif
+ifeq ($(UNAME_S),Darwin)
+		open := open
+endif
+
+test: build
+	@${open} test/index.html
+
+testci: build
+	@testem ci -f test/testem.json -l PhantomJS
+
+.PHONY: clean testem test testci
