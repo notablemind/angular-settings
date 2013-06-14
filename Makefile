@@ -4,6 +4,9 @@ plugin_tpl := $(patsubst %.jade,%.js,$(wildcard plugins/*.jade))
 build: components node_modules index.js angular-settings.styl template.js plugin-tpl
 	@component build --dev --use component-stylus
 
+buildci: components
+	@component build --dev
+
 node_modules:
 	@npm install
 
@@ -42,7 +45,7 @@ endif
 test: build
 	@${open} test/index.html
 
-testci: build
+testci: buildci
 	@testem ci -f test/testem.json -l PhantomJS
 
-.PHONY: clean testem test testci
+.PHONY: clean testem test testci buildci

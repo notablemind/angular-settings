@@ -100,4 +100,42 @@ describe('Settings Manager', function(){
       });
     });
   });
+
+  describe('with a radio setting', function(){
+    var radios, scope;
+    beforeEach(function(){
+      sets.add({
+        name: 'one',
+        settings: [{name: 'key', type: 'radio', value: 'c',
+                    options: ['a', 'c', 'f']}]
+      });
+      node = bootstrap('template', 'test');
+      radios = qa('#ang .key input');
+      scope = angular.element(radios[0]).scope().$parent;
+    });
+
+    it('should correctly populate', function(){
+      expect(radios[1].checked).to.be.true;
+      expect(radios[0].checked).to.be.false;
+      expect(radios[2].checked).to.be.false;
+    });
+
+    it('should respond to scope changes', function(){
+      sets.set('one.key', 'f');
+      scope.$digest();
+      expect(radios[2].checked).to.be.true;
+      expect(radios[1].checked).to.be.false;
+    });
+
+    describe('clicking an option', function(){
+      beforeEach(function(){
+        radios[0].checked = true;
+        trigger(radios[0], 'click');
+      });
+      it('should update the setting', function(){
+        expect(sets.get('one.key')).to.eql('a');
+      });
+    });
+  });
+
 });

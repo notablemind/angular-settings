@@ -18,16 +18,23 @@ sets.add({
   type: 'bool',
   settings: [
     {
-      name: 'Name',
+      name: 'name',
       type: 'text',
       value: 'George',
       description: 'Your Name'
     },
     {
-      name: 'Male',
+      name: 'male',
       type: 'bool',
       value: true,
       description: 'Masculinity'
+    },
+    {
+      name: 'house',
+      type: 'radio',
+      value: 'Slytherine',
+      description: 'Harry Potter Horwarts House',
+      options: ['Slytherine', 'Frools', 'Ravenclaw']
     }
   ]
 });

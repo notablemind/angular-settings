@@ -1,7 +1,5 @@
 {
     "devDependencies": {
-        "component-stylus": "*",
-        "mocha": "*",
-        "chai": "*"
+        "component-stylus": "*"
     }
 }
