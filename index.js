@@ -43,7 +43,7 @@ var mod = angular.module('settings', [])
         */
         var config = settingsConfigs[name]
           , manager = settings.getSettings(config.name)
-          , sub = manager.subs[config.sub || ''];
+          , sub = manager.getSub(config.sub || '');
         if (!config.pages) {
           scope.pages = [sub];
         } else {
