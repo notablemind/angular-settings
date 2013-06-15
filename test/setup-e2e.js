@@ -20,7 +20,9 @@ function Tester($scope) {
 };
 
 angularSettings.config('tester', {
-  name: 'thetests'
+  name: 'thetests',
+  sub: '',
+  pages: [ 'myne' ]
 });
 
 var sets = settings.getSettings('thetests');

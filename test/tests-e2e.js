@@ -39,7 +39,7 @@ describe('Settings Manager', function(){
     var text, scope;
     beforeEach(function(){
       sets.add({
-        name: 'one',
+        name: 'myne',
         settings: [{name: 'key', type: 'text', value: 'George'}]
       });
       node = bootstrap('template', 'test');
@@ -52,7 +52,7 @@ describe('Settings Manager', function(){
     });
 
     it('should respond to settings changes', function(){
-      sets.set('one.key', 'Sally');
+      sets.set('myne.key', 'Sally');
       scope.$digest();
       expect(text.value).to.eql('Sally');
     });
@@ -63,7 +63,7 @@ describe('Settings Manager', function(){
         trigger(text, 'input');
       });
       it('should effect the setting', function(){
-        expect(sets.get('one.key')).to.eql('Brent');
+        expect(sets.get('myne.key')).to.eql('Brent');
       });
     });
   });
@@ -72,7 +72,7 @@ describe('Settings Manager', function(){
     var bool, scope;
     beforeEach(function(){
       sets.add({
-        name: 'one',
+        name: 'myne',
         settings: [{name: 'key', type: 'bool', value: true}]
       });
       node = bootstrap('template', 'test');
@@ -85,7 +85,7 @@ describe('Settings Manager', function(){
     });
 
     it('should respond to scope changes', function(){
-      sets.set('one.key', false);
+      sets.set('myne.key', false);
       scope.$digest();
       expect(bool.checked).to.be.false;
     });
@@ -96,7 +96,7 @@ describe('Settings Manager', function(){
         trigger(bool, 'click');
       });
       it('should update the setting', function(){
-        expect(sets.get('one.key')).to.be.false;
+        expect(sets.get('myne.key')).to.be.false;
       });
     });
   });
@@ -105,7 +105,7 @@ describe('Settings Manager', function(){
     var radios, scope;
     beforeEach(function(){
       sets.add({
-        name: 'one',
+        name: 'myne',
         settings: [{name: 'key', type: 'radio', value: 'c',
                     options: ['a', 'c', 'f']}]
       });
@@ -121,7 +121,7 @@ describe('Settings Manager', function(){
     });
 
     it('should respond to scope changes', function(){
-      sets.set('one.key', 'f');
+      sets.set('myne.key', 'f');
       scope.$digest();
       expect(radios[2].checked).to.be.true;
       expect(radios[1].checked).to.be.false;
@@ -133,7 +133,7 @@ describe('Settings Manager', function(){
         trigger(radios[0], 'click');
       });
       it('should update the setting', function(){
-        expect(sets.get('one.key')).to.eql('a');
+        expect(sets.get('myne.key')).to.eql('a');
       });
     });
   });

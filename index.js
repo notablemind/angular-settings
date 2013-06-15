@@ -42,17 +42,24 @@ var mod = angular.module('settings', [])
         });
         */
         var config = settingsConfigs[name]
-          , manager = settings.getSettings(config.name);
+          , manager = settings.getSettings(config.name)
+          , sub = manager.subs[config.sub || ''];
         if (!config.pages) {
-          for (var i=0; i<manager.items.length; i++) {
-            if (!manager.items[i].settings) {
-              console.warn('Toplevel items not allowed when no pages are specified');
-            }
-          }
-          scope.pages = manager.items;
+          scope.pages = [sub];
         } else {
-          console.error('Pages not supported yet');
           scope.pages = [];
+          config.pages.forEach(function(name){
+            // var page = [];
+            // one.items.forEach(function(name) {
+            var parts = name.split('.')
+            , base = sub;
+            while (parts.length) {
+              base = base[parts.shift()];
+            }
+            scope.pages.push(base);
+            // });
+            // scope.pages.push(page);
+          });
         }
       }
     };
@@ -99,8 +106,8 @@ var settingsConfigs = {
 };
 
 module.exports = {
-  factory: function (settings) {
-    mod.factory('settings', function () {
+  factory: function (name, settings) {
+    mod.factory(name, function () {
       return settings;
     });
   },
