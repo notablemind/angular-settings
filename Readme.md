@@ -46,11 +46,13 @@ available as the "settings" factory.
 Plugin:
 
     {
-      validate: function (value, setting) ->
-         (null == valid | string == error message)
+      validator: function (scope, ctrl) {
+        return function (value) { return value; };
+      }
       template: str. This is rendered with the setting scope, with vbls
         - setting: {setting obj}
         - validate: fn
+      init: function (scope, element, attrs) -> initialize stuff
     }
 
 Plugin components are *not* to register themselves. They are, by

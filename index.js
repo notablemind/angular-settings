@@ -89,6 +89,9 @@ var mod = angular.module('settings', [])
               if (plugin.formatter) {
                 ngModel.$formatters.push(plugin.formatter);
               }
+              if (plugin.init) {
+                plugin.init(scope, element, attrs);
+              }
             }
           });
           scope.$watch('setting', function(value) {
