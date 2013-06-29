@@ -1,4 +1,6 @@
 
+// all angular things were loaded in setup-e2e.js
+
 var expect = require('chai').expect;
 
 var trigger = function (el, ev) {
@@ -11,12 +13,13 @@ var trigger = function (el, ev) {
   }
 }
 
-var bootstrap = function (templateId, mainModule) {
+var bootstrap = function (templateId, mainModule, mod) {
   var src = document.getElementById(templateId).innerHTML;
   var parent = document.createElement('div');
   parent.innerHTML = src;
   var node = parent.firstElementChild;
   document.body.appendChild(node);
+  mod && mod(node);
   angular.bootstrap(node, [mainModule]);
   return node;
 };
@@ -33,6 +36,55 @@ describe('Settings Manager', function(){
   
   afterEach(function(){
     if (node) node.parentNode.removeChild(node);
+  });
+
+  describe('loading from localStorage', function () {
+    beforeEach(function () {
+      localStorage['thetests.angularSettings'] = '{"base.one":"two"}';
+      sets.add({
+        name: 'base',
+        settings: [{name: 'one', type: 'text', value: 'George'}]
+      });
+      angularSettings.loadLocalStorage(sets);
+      bootstrap('template', 'test');
+    });
+    afterEach(function () {
+      localStorage.clear();
+    });
+    it('should load', function () {
+      expect(sets.get('base.one')).to.equal('two');
+    });
+  });
+
+  describe('with local storage enabled', function () {
+    var scope, text;
+    beforeEach(function () {
+      localStorage.clear();
+      sets.add({
+        name: 'myne',
+        settings: [{name: 'key', type: 'text', value: 'George'}]
+      });
+      node = bootstrap('template', 'test', function (div) {
+        div.querySelector('.settings-manager').setAttribute('data-local-storage', true);
+      });
+      text = q('#ang .key input')
+      scope = angular.element(text).scope();
+    });
+    describe('when a setting changes', function () {
+      beforeEach(function () {
+        text.value = 'Brent';
+        trigger(text, 'input');
+      });
+
+      it('should save', function () {
+        console.log(sets.get('myne.key'));
+        var data = localStorage['thetests.angularSettings'];
+        console.log(data);
+        expect(JSON.parse(data)).to.eql({
+          "myne.key": "Brent"
+        });
+      });
+    });
   });
 
   describe('the text setting', function(){

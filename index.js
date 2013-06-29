@@ -18,6 +18,11 @@ loco.addDefault({
   'Description': 'Description'
 });
 
+function saveLocalStorage(manager) {
+  var key = manager.name + '.angularSettings';
+  localStorage[key] = JSON.stringify(manager.json());
+}
+
 var mod = angular.module('settings', [])
 
   .directive('settingsManager', function() {
@@ -30,20 +35,11 @@ var mod = angular.module('settings', [])
           console.error('Settings manager invalid initialization; must pass in a valid name to watch');
           return;
         }
-        // TODO: figure out how I want to make this configurable. probably a
-        // global localization solution
         scope.t = loco.get;
-        /*
-        scope.$parent.$watch(name, function(value) {
-          scope.settings = value;
-        });
-        scope.$watch('settings', function(value) {
-          scope.$parent[name] = value;
-        });
-        */
         var config = settingsConfigs[name]
           , manager = settings.getSettings(config.name)
           , sub = manager.getSub(config.sub || '');
+        scope.settings = manager.settings;
         if (!config.pages) {
           scope.pages = [sub];
         } else {
@@ -60,6 +56,11 @@ var mod = angular.module('settings', [])
             // });
             // scope.pages.push(page);
           });
+        }
+        if (attrs.localStorage) {
+          scope.$watch('settings', function (value) {
+            saveLocalStorage(manager);
+          }, true);
         }
       }
     };
@@ -117,6 +118,19 @@ module.exports = {
   register: register,
   config: function (name, config) {
     settingsConfigs[name] = config;
+  },
+  loadLocalStorage: function (manager) {
+    var values
+      , name = manager.name + '.angularSettings';
+    if (localStorage[name]) {
+      try {
+        values = JSON.parse(localStorage[name]);
+      } catch (e) {
+        console.log('Failed to load settings from localStorage');
+        return;
+      }
+      manager.load(values);
+    }
   }
 };
 
