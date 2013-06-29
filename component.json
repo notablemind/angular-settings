@@ -22,6 +22,8 @@
     "plugins/bool-template.js",
     "plugins/text.js",
     "plugins/text-template.js",
+    "plugins/select.js",
+    "plugins/select-template.js",
     "plugins/radio.js",
     "plugins/radio-template.js"
   ],

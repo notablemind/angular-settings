@@ -57,6 +57,10 @@ var mod = angular.module('settings', [])
             // scope.pages.push(page);
           });
         }
+        scope.currentPage = scope.pages[0].name;
+        scope.showPage = function (page) {
+          scope.currentPage = page.name;
+        };
         if (attrs.localStorage) {
           scope.$watch('settings', function (value) {
             saveLocalStorage(manager);
@@ -76,7 +80,11 @@ var mod = angular.module('settings', [])
           var type;
           scope.$parent.$watch(name, function(value) {
             scope.setting = value;
-            if (value.type !== type && _registry[value.type]) {
+            if (value.type !== type){
+              if (!_registry[value.type]) {
+                console.error('Invalid setting type encountered:', value.type);
+                return;
+              }
               type = value.type;
               var plugin = _registry[value.type];
               // scope.validate = plugin.validate;
@@ -135,7 +143,7 @@ module.exports = {
 };
 
 // load the built-in modules
-var built_in = ['bool', 'radio', 'text'];
+var built_in = ['bool', 'radio', 'text', 'select'];
 for (var i=0; i<built_in.length; i++) {
   register(built_in[i], require('./plugins/' + built_in[i]));
 }

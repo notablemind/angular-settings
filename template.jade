@@ -1,16 +1,21 @@
 .settings-manager
-  .page(data-ng-repeat='page in pages')
-    .title {{page.title}}
-    table
-      thead
-        th {{t('Setting')}}
-        th {{t('Value')}}
-        th {{t('Description')}}
-      tbody
-        tr.setting-form(data-ng-repeat='setting in page.settings', ng-class='setting.name')
-          td {{setting.title || setting.name}}
-          td
-            form(name='setting-form')
-              div(data-setting='setting', class='setting setting-{{setting.type}}')
-          td {{setting.description}}
+  .sidebar
+    ul
+      li(data-ng-repeat='page in pages', ng-class="{selected: page.name === currentPage}")
+        a(ng-click='showPage(page)') {{page.title}}
+  .pages
+    .page(data-ng-repeat='page in pages', ng-show="page.name === currentPage")
+      .title {{page.title}}
+      table
+        thead
+          th {{t('Setting')}}
+          th {{t('Value')}}
+          th {{t('Description')}}
+        tbody
+          tr.setting-form(data-ng-repeat='setting in page.settings', ng-class='setting.name')
+            td {{setting.title || setting.name}}
+            td
+              form(name='setting-form')
+                div(data-setting='setting', class='setting setting-{{setting.type}}')
+            td {{setting.description}}
   
