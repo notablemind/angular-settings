@@ -8,7 +8,7 @@
         th {{t('Description')}}
       tbody
         tr.setting-form(data-ng-repeat='setting in page.settings', ng-class='setting.name')
-          td {{setting.name}}
+          td {{setting.title || setting.name}}
           td
             form(name='setting-form')
               div(data-setting='setting', class='setting setting-{{setting.type}}')

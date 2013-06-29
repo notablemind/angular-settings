@@ -1,1 +1,1 @@
-module.exports = '<label ng-repeat="value in setting.options"><input ng-model="setting.value" type="radio" value="{{value}}" name="setting" class="val-{{value}}"/><span class="label">{{ value }}</span></label>';
+module.exports = '<label ng-repeat="value in setting.options"><input ng-model="setting.value" type="radio" value="{{value[1]}}" name="setting" class="val-{{value[1]}}"/><span class="label">{{ value[0] }}</span></label>';
