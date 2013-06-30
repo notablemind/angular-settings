@@ -41,12 +41,17 @@ describe('Settings Manager', function(){
   describe('loading from localStorage', function () {
     beforeEach(function () {
       localStorage['thetests.angularSettings'] = '{"base.one":"two"}';
-      sets.add({
-        name: 'base',
-        settings: [{name: 'one', type: 'text', value: 'George'}]
+      sets.config({
+        base: {
+          _group: true,
+          one: {
+            type: 'text',
+            value: 'George'
+          }
+        }
       });
       angularSettings.loadLocalStorage(sets);
-      bootstrap('template', 'test');
+      node = bootstrap('template', 'test');
     });
     afterEach(function () {
       localStorage.clear();
@@ -60,12 +65,18 @@ describe('Settings Manager', function(){
     var scope, text;
     beforeEach(function () {
       localStorage.clear();
-      sets.add({
-        name: 'myne',
-        settings: [{name: 'key', type: 'text', value: 'George'}]
+      sets.config({
+        myne: {
+          _group: true,
+          key: {
+            type: 'text',
+            value: 'George'
+          }
+        }
       });
       node = bootstrap('template', 'test', function (div) {
-        div.querySelector('.settings-manager').setAttribute('data-local-storage', true);
+        div.querySelector('.settings-manager')
+           .setAttribute('data-local-storage', true);
       });
       text = q('#ang .key input')
       scope = angular.element(text).scope();
@@ -90,9 +101,11 @@ describe('Settings Manager', function(){
   describe('the text setting', function(){
     var text, scope;
     beforeEach(function(){
-      sets.add({
-        name: 'myne',
-        settings: [{name: 'key', type: 'text', value: 'George'}]
+      sets.config({
+        myne: {
+          _group: true,
+          key: {type: 'text', value: 'George'}
+        }
       });
       node = bootstrap('template', 'test');
       text = q('#ang .key input')
@@ -123,9 +136,11 @@ describe('Settings Manager', function(){
   describe('with a bool setting', function(){
     var bool, scope;
     beforeEach(function(){
-      sets.add({
-        name: 'myne',
-        settings: [{name: 'key', type: 'bool', value: true}]
+      sets.config({
+        myne: {
+          _group: true,
+          key: {type: 'bool', value: true}
+        }
       });
       node = bootstrap('template', 'test');
       bool = q('#ang .key input');
@@ -156,10 +171,12 @@ describe('Settings Manager', function(){
   describe('with a radio setting', function(){
     var radios, scope;
     beforeEach(function(){
-      sets.add({
-        name: 'myne',
-        settings: [{name: 'key', type: 'radio', value: 'c',
-                    options: ['a', 'c', 'f']}]
+      sets.config({
+        myne: {
+          _group: true,
+          key: {type: 'radio', value: 'c',
+                    options: [['a', 'a'], ['c', 'c'], ['f', 'f']]}
+       }
       });
       node = bootstrap('template', 'test');
       radios = qa('#ang .key input');

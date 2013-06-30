@@ -6,7 +6,7 @@
   .pages
     .page(data-ng-repeat='page in pages', ng-show="page.name === currentPage")
       .title {{page.title}}
-      table
+      table(class="table")
         thead
           th {{t('Setting')}}
           th {{t('Value')}}

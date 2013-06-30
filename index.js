@@ -37,26 +37,22 @@ var mod = angular.module('settings', [])
         }
         scope.t = loco.get;
         var config = settingsConfigs[name]
-          , manager = settings.getSettings(config.name)
-          , sub = manager.getSub(config.sub || '');
+          , manager = settings.getSettings(config.manager);
         scope.settings = manager.settings;
-        if (!config.pages) {
-          scope.pages = [sub];
-        } else {
-          scope.pages = [];
-          config.pages.forEach(function(name){
-            // var page = [];
-            // one.items.forEach(function(name) {
-            var parts = name.split('.')
-            , base = sub;
-            while (parts.length) {
-              base = base[parts.shift()];
-            }
-            scope.pages.push(base);
-            // });
-            // scope.pages.push(page);
+        scope.pages = [];
+        config.pages.forEach(function (page) {
+          var items = [];
+          page.settings.forEach(function (pattern) {
+            items = items.concat(manager.match(pattern));
           });
-        }
+          scope.pages.push({
+            name: page.name,
+            title: page.name,
+            description: page.description,
+            settings: items
+          });
+        });
+ 
         scope.currentPage = scope.pages[0].name;
         scope.showPage = function (page) {
           scope.currentPage = page.name;
@@ -124,9 +120,25 @@ module.exports = {
     });
   },
   register: register,
-  config: function (name, config) {
+
+  // config(name, [manager,] page, [page, ...])
+  // if manager is not given, name will be used.
+  config: function (name, manager) {
+    var pages = [].slice.call(arguments, 1)
+      , config = {
+          name: name,
+          pages: pages
+        };
+    if (typeof(manager) === 'string') {
+      config.manager = manager;
+      pages.shift();
+    } else {
+      config.manager = name;
+    }
     settingsConfigs[name] = config;
   },
+
+  // deprecated
   loadLocalStorage: function (manager) {
     var values
       , name = manager.name + '.angularSettings';

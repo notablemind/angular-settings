@@ -19,35 +19,36 @@ function Tester($scope) {
   };
 };
 
-angularSettings.config('tester', {
-  name: 'thetests',
-  sub: '',
-  pages: [ 'myne' ]
+angularSettings.config('tester', 'thetests', {
+  title: "Page 1",
+  name: "page1",
+  settings: [ "**" ]
 });
 
 var sets = settings.getSettings('thetests');
-sets.add({
-  name: 'myne',
-  type: 'bool',
-  settings: [
-    {
-      name: 'name',
+sets.config({
+  myne: {
+    _type: 'bool',
+    _group: true,
+    name: {
       type: 'text',
       value: 'George',
       description: 'Your Name'
     },
-    {
+    male: {
       name: 'male',
       type: 'bool',
       value: true,
       description: 'Masculinity'
     },
-    {
+    house: {
       name: 'house',
       type: 'radio',
       value: 'Slytherine',
       description: 'Harry Potter Horwarts House',
-      options: ['Slytherine', 'Frools', 'Ravenclaw']
+      options: [['Slytherine', 'slytherine'],
+                ['Frools', 'frools'],
+                ['Ravenclaw', 'ravenclaw']]
     }
-  ]
+  }
 });

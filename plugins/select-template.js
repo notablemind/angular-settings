@@ -1,0 +1,1 @@
+module.exports = '<select ng-model="setting.value" ng-options="value[1] as value[0] for value in setting.options" name="setting"></select>';
