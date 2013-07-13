@@ -1,0 +1,7 @@
+prepare:
+  - npm install
+  - npm install -g component
+  - component install --dev
+  - component build --dev
+  - npm install -g testem
+test: make testci
