@@ -4,4 +4,6 @@ prepare:
   - component install --dev
   - component build --dev
   - npm install -g testem
-test: make testci
+test:
+  - make testci
+  - echo "awesome"
