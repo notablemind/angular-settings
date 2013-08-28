@@ -2,11 +2,11 @@
   "name": "angular-settings",
   "repo": "notablemind/angular-settings",
   "description": "Settings Manager angular component",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "keywords": [],
   "dependencies": {
-    "notablemind/settings": "*",
-    "notablemind/loco": "*",
+    "notablemind/settings": "1.x",
+    "notablemind/loco": "1.x",
     "jaredly/angularjs": "*"
   },
   "development": {
