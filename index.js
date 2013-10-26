@@ -120,6 +120,7 @@ module.exports = {
     });
   },
   register: register,
+  mod: mod,
 
   // config(name, [manager,] page, [page, ...])
   // if manager is not given, name will be used.
